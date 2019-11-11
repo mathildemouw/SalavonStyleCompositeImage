@@ -24,7 +24,7 @@ class ofApp : public ofBaseApp{
     vector < ofImage > images;
     vector < ofImage > moonImages;
     ofImage composite;
-//    ofImage composite2;
+    ofImage moonComposite;
     
 };
 

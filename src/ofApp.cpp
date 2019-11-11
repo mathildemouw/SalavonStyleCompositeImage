@@ -34,10 +34,6 @@ void ofApp::setup(){
         images.back().crop(target.x, target.y, target.width, target.height);
         images.back().resize(640,480);
         //cout << source << " " << target << endl;
-        
-        
-        
-        
     }
     
     
@@ -69,48 +65,46 @@ void ofApp::setup(){
       // MOOOOOOOOONS
       
     
-//      ofDirectory moondir;
-//      moondir.listDir("moon");
-//      moondir.sort();
-//          for (int i = 0; i < moondir.size(); i++){
+      ofDirectory moondir;
+      moondir.listDir("moon");
+      moondir.sort();
+          for (int i = 0; i < moondir.size(); i++){
     
-//              ofImage img;
-//              moonImages.push_back( img );
-//              moonImages.back().load(moondir.getPath(i));
-    //
-//              ofRectangle target = ofRectangle(300,300,300+640,300+480);
-    //          ofRectangle source =
-    //              ofRectangle(300,300, moonImages.back().getWidth()+300,
-    //                  moonImages.back().getHeight()+300);
-    //          target.scaleTo(source);
-    //
-    //          moonImages.back().crop(target.x, target.y, target.width, target.height);
-    //          moonImages.back().resize(640,480);
+              ofImage img;
+              moonImages.push_back( img );
+              moonImages.back().load(moondir.getPath(i));
+
+              ofRectangle target = ofRectangle(0,0,640,480);
+              ofRectangle source =
+                  ofRectangle(0,0, moonImages.back().getWidth(),
+                      moonImages.back().getHeight());
+              target.scaleTo(source);
+
+              moonImages.back().crop(target.x, target.y, target.width, target.height);
+              moonImages.back().resize(640,480);
+          }
+          moonComposite.allocate(640+640,480, OF_IMAGE_COLOR);
+    
+//          for (int x = 0; x < 640; x++){
+//              for (int y = 0; y < 480; y++){
+//                  int avgR = 0;
+//                  int avgG = 0;
+//                  int avgB = 0;
+//                  for (int i = 0; i < moonImages.size(); i++){
+//                      ofColor color = moonImages[i].getColor(x,y);
+//                      avgR += color.r;
+//                      avgG += color.g;
+//                      avgB += color.b;
+//                  }
+//                  ofColor avg = ofColor( (float)avgR/(float)moonImages.size(),
+//                                        (float)avgG/(float)moonImages.size(),
+//                                        (float)avgB/(float)moonImages.size());
+//                  moonComposite.setColor(x,y,avg);
+//              }
 //          }
-    //
-    //
-    //      composite2.allocate(640,480, OF_IMAGE_COLOR);
-    //
-    //      for (int x = 0; x < 640; x++){
-    //          for (int y = 0; y < 480; y++){
-    //              int avgR = 0;
-    //              int avgG = 0;
-    //              int avgB = 0;
-    //              for (int i = 0; i < moonImages.size(); i++){
-    //                  ofColor color = moonImages[i].getColor(x,y);
-    //                  avgR += color.r;
-    //                  avgG += color.g;
-    //                  avgB += color.b;
-    //              }
-    //              ofColor avg = ofColor( (float)avgR/(float)moonImages.size(),
-    //                                    (float)avgG/(float)moonImages.size(),
-    //                                    (float)avgB/(float)moonImages.size());
-    //              composite2.setColor(x,y,avg);
-    //          }
-    //      }
-    //
+    
     //      // copy the pixels from RAM to the graphics card....
-    //      composite2.update();
+//          moonComposite.update();
     
 }
 
@@ -125,8 +119,8 @@ void ofApp::draw(){
     images[mouseX%images.size()].draw(0,0);
     composite.draw(0,480);
   
-//    moonImages[mouseX%images.size()].draw(0,0);
-//    composite.draw(0,480);
+    moonImages[mouseX%moonImages.size()].draw(640,0);
+    moonComposite.draw(0,480);
 }
 
 //--------------------------------------------------------------
